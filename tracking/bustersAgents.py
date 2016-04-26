@@ -142,7 +142,7 @@ class GreedyBustersAgent(BustersAgent):
 
         livingGhostPositionDistributions, defined below, is a list of
         util.Counter objects equal to the position belief
-        distributions for each of the ghosts that are still alive.  It
+        distributions of the ghosts that are still alive.  It
         is defined based on (these are implementation details about
         which you need not be concerned):
 
@@ -162,5 +162,26 @@ class GreedyBustersAgent(BustersAgent):
         livingGhostPositionDistributions = \
             [beliefs for i, beliefs in enumerate(self.ghostBeliefs)
              if livingGhosts[i+1]]
+
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+
+        m = []
+        for g in livingGhostPositionDistributions:            
+            am = g.argMax();
+            print pacmanPosition
+            m.append((g.argMax(), self.distancer.getDistance(am, pacmanPosition)));
+        
+        dest = min(m);
+
+
+        minDist = (None, float("inf"));
+        currAct = None;
+        for a in legal:
+            nextPos = Actions.getSuccessor(pacmanPosition, a);
+            print nextPos;
+            tempDist = self.distancer.getDistance(dest[0], nextPos);
+            if(tempDist < minDist):
+                minDist = tempDist;
+                currAct  = a;
+
+        return currAct;

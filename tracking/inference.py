@@ -373,7 +373,6 @@ class ParticleFilter(InferenceModule):
             distribution[element] += 1
         distribution.normalize()
         return distribution
-        #util.raiseNotDefined()
 
 class MarginalInference(InferenceModule):
     """
